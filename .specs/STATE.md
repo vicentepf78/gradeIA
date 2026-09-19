@@ -13,5 +13,5 @@
 **In progress**: none
 **Next step**: nenhum — feature fechada no profile light; push só com autorização explícita
 **Blockers**: none
-**Uncommitted**: `verification.md` (relatório do Verifier)
+**Uncommitted**: none
 **Branch**: poc-grade-semanal
