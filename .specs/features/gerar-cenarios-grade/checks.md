@@ -40,16 +40,16 @@ Proof: `pytest tests/scheduling/test_cenario_inviavel.py::test_solver_sem_altern
 
 ### S3 - comparar e explicar opções de reorganização · 5 arquivos · 24 KB · ~6k
 
-**C10** - Uma simulação viável retorna de uma a cinco soluções estruturalmente distintas (AC 10).
+**C10** ✓ (feito) - Uma simulação viável retorna de uma a cinco soluções estruturalmente distintas (AC 10).
 Proof: `pytest tests/cenarios/test_comparacao_de_solucoes.py::test_resultado_limita_a_cinco_solucoes_distintas`
 
-**C11** - Cada solução informa quantidade de alterações, professores afetados, aulas deslocadas e janelas criadas contra a grade base (AC 11).
+**C11** ✓ (feito) - Cada solução informa quantidade de alterações, professores afetados, aulas deslocadas e janelas criadas contra a grade base (AC 11).
 Proof: `pytest tests/cenarios/test_comparacao_de_solucoes.py::test_solucao_expoe_todas_as_metricas_de_impacto`
 
-**C12** - Soluções retornadas são ordenadas por quantidade de alterações, professores afetados, aulas deslocadas e janelas criadas, nesta precedência (AC 12).
+**C12** ✓ (feito) - Soluções retornadas são ordenadas por quantidade de alterações, professores afetados, aulas deslocadas e janelas criadas, nesta precedência (AC 12).
 Proof: `pytest tests/cenarios/test_comparacao_de_solucoes.py::test_solucoes_sao_ordenadas_por_tupla_lexicografica_de_impacto`
 
-**C13** - Duas execuções com a mesma grade base e o mesmo cenário retornam as mesmas soluções na mesma ordem (AC 13).
+**C13** ✓ (feito) - Duas execuções com a mesma grade base e o mesmo cenário retornam as mesmas soluções na mesma ordem (AC 13).
 Proof: `pytest tests/cenarios/test_comparacao_de_solucoes.py::test_mesma_entrada_produz_mesmas_solucoes_na_mesma_ordem`
 
 ## Coverage
@@ -86,3 +86,4 @@ Proof: `pytest tests/cenarios/test_comparacao_de_solucoes.py::test_mesma_entrada
 - S1 = 24 KB; S2 acrescenta 48 KB; S3 acrescenta 24 KB; configuração e fixtures acrescentam aproximadamente 12 KB. Estimativa total: 108 KB / 4 = aproximadamente 27k tokens, abaixo do orçamento `light` de 150k - one builder.
 - S1 C1/C3/C4 fechados nesta fatia. C2 não fecha aqui: `Cenario` e `AusenciaDeProfessor` estão modelados; a prova `test_ausencia_impede_alocacao_do_professor_na_janela` fica para S2 com o motor CP-SAT.
 - S2 C2/C5–C9 fechados nesta fatia. C10–C13 ficam para S3.
+- S3 C10–C13 fechados nesta fatia. C1–C13 verdes; aguardando Verifier.

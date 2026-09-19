@@ -10,6 +10,7 @@ from gradeia.modules.cenarios import (
     ResultadoDaSimulacao,
     SolucaoDeCenario,
 )
+from gradeia.modules.cenarios.comparador import ComparadorDeSolucoes
 from gradeia.modules.cenarios.validacao import (
     aulas_fora_da_janela_de_alteracao,
     janela_de_alteracao,
@@ -70,7 +71,10 @@ class OrToolsSchedulingEngine(SchedulingEngine):
         if not aulas_moveis:
             return ResultadoDaSimulacao(
                 status=CENARIO_VIAVEL,
-                solucoes=(SolucaoDeCenario(atribuicoes=grade_base.aulas),),
+                solucoes=ComparadorDeSolucoes().comparar(
+                    grade_base,
+                    (SolucaoDeCenario(atribuicoes=grade_base.aulas),),
+                ),
             )
 
         ocupacao_professor = {
@@ -178,5 +182,5 @@ class OrToolsSchedulingEngine(SchedulingEngine):
             return ResultadoDaSimulacao(status=CENARIO_INVIAVEL)
         return ResultadoDaSimulacao(
             status=CENARIO_VIAVEL,
-            solucoes=tuple(coletor.solucoes),
+            solucoes=ComparadorDeSolucoes().comparar(grade_base, coletor.solucoes),
         )
