@@ -64,3 +64,7 @@ class Cenario:
 @dataclass(frozen=True)
 class SolucaoDeCenario:
     atribuicoes: tuple[AtribuicaoDeAula, ...] = ()
+    quantidade_de_alteracoes: int = 0
+    professores_afetados: frozenset[str] = frozenset()
+    quantidade_de_aulas_deslocadas: int = 0
+    janelas_criadas: int = 0

@@ -1,3 +1,4 @@
+from gradeia.modules.cenarios.comparador import ComparadorDeSolucoes
 from gradeia.modules.cenarios.modelo import (
     JANELA_DE_ALTERACAO,
     AtribuicaoDeAula,
@@ -24,6 +25,7 @@ __all__ = [
     "Professor",
     "RestricaoDeCenario",
     "SolucaoDeCenario",
+    "ComparadorDeSolucoes",
     "CENARIO_INVIAVEL",
     "CENARIO_VIAVEL",
     "ERRO_VALIDACAO",

@@ -9,9 +9,9 @@
 ## Handoff
 
 **Feature**: gerar-cenarios-grade
-**Where**: C9 fechado - C1–C9 verdes; C10–C13 pendentes
+**Where**: C13 fechado - C1–C13 verdes; aguardando Verifier
 **In progress**: none
-**Next step**: S3 — comparar e ordenar até cinco soluções
+**Next step**: Verifier independente sobre o range do primeiro commit da feature..HEAD
 **Blockers**: none
 **Uncommitted**: none
 **Branch**: poc-grade-semanal
