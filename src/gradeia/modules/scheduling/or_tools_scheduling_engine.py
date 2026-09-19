@@ -12,9 +12,13 @@ from gradeia.modules.cenarios import (
 )
 from gradeia.modules.cenarios.comparador import ComparadorDeSolucoes
 from gradeia.modules.cenarios.validacao import (
+    aulas_afetadas_pela_ausencia,
     aulas_fora_da_janela_de_alteracao,
+    ausencia_eh_valida,
+    dias_cobertos_pela_ausencia,
     janela_de_alteracao,
     referencias_da_grade_sao_validas,
+    turno_da_aula,
 )
 from gradeia.modules.scheduling.porta import SchedulingEngine
 
@@ -45,6 +49,16 @@ class OrToolsSchedulingEngine(SchedulingEngine):
     def simular(self, grade_base: GradeBase, cenario: Cenario) -> ResultadoDaSimulacao:
         if not referencias_da_grade_sao_validas(grade_base):
             return ResultadoDaSimulacao(status=ERRO_VALIDACAO)
+        if not ausencia_eh_valida(grade_base, cenario):
+            return ResultadoDaSimulacao(status=ERRO_VALIDACAO)
+        if not aulas_afetadas_pela_ausencia(grade_base, cenario):
+            return ResultadoDaSimulacao(
+                status=CENARIO_VIAVEL,
+                solucoes=ComparadorDeSolucoes().comparar(
+                    grade_base,
+                    (SolucaoDeCenario(atribuicoes=grade_base.aulas),),
+                ),
+            )
 
         aulas_fora = aulas_fora_da_janela_de_alteracao(grade_base, cenario)
         if aulas_fora:
@@ -56,14 +70,16 @@ class OrToolsSchedulingEngine(SchedulingEngine):
         return self._resolver(grade_base, cenario)
 
     def _resolver(self, grade_base: GradeBase, cenario: Cenario) -> ResultadoDaSimulacao:
-        janela = janela_de_alteracao(cenario)
+        janela = janela_de_alteracao(grade_base, cenario)
         id_ausente = cenario.ausencia.id_professor
-        slots_de_ausencia = cenario.ausencia.dias_periodos
+        turno_alvo = cenario.ausencia.turno
+        dias_ausente = dias_cobertos_pela_ausencia(grade_base, cenario)
 
         aulas_fixas: dict[int, AtribuicaoDeAula] = {}
         aulas_moveis: list[int] = []
         for indice, aula in enumerate(grade_base.aulas):
-            if (aula.dia, aula.periodo) in janela:
+            no_turno = turno_da_aula(grade_base, aula) == turno_alvo
+            if no_turno and (aula.dia, aula.periodo) in janela:
                 aulas_moveis.append(indice)
             else:
                 aulas_fixas[indice] = aula
@@ -78,7 +94,12 @@ class OrToolsSchedulingEngine(SchedulingEngine):
             )
 
         ocupacao_professor = {
-            (aula.id_professor, aula.dia, aula.periodo)
+            (
+                aula.id_professor,
+                aula.dia,
+                turno_da_aula(grade_base, aula),
+                aula.periodo,
+            )
             for aula in aulas_fixas.values()
         }
         ocupacao_turma = {
@@ -88,17 +109,23 @@ class OrToolsSchedulingEngine(SchedulingEngine):
         candidatos_por_aula: dict[int, list[tuple[str, int, int]]] = {}
         for indice in aulas_moveis:
             aula = grade_base.aulas[indice]
+            teto = grade_base.perfil_da_turma(aula.id_turma).teto_de_periodos
             candidatos: list[tuple[str, int, int]] = []
             for id_professor in grade_base.professores:
                 perfil = grade_base.perfil_do_professor(id_professor)
                 if aula.id_disciplina not in perfil.disciplinas_habilitadas:
                     continue
                 for dia, periodo in janela:
+                    if periodo > teto:
+                        continue
                     if (dia, periodo) not in perfil.disponibilidade:
                         continue
-                    if id_professor == id_ausente and (dia, periodo) in slots_de_ausencia:
+                    if (
+                        id_professor == id_ausente
+                        and dia in dias_ausente
+                    ):
                         continue
-                    if (id_professor, dia, periodo) in ocupacao_professor:
+                    if (id_professor, dia, turno_alvo, periodo) in ocupacao_professor:
                         continue
                     if (aula.id_turma, dia, periodo) in ocupacao_turma:
                         continue
@@ -163,6 +190,7 @@ class OrToolsSchedulingEngine(SchedulingEngine):
                             id_turma=aula.id_turma,
                             dia=dia,
                             periodo=periodo,
+                            turno=aula.turno,
                         )
                         break
                 if escolhida is None:

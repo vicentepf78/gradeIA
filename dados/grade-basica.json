@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "descricao": "Grade semanal sintética de uma escola com 4 professores, 3 turmas e 4 disciplinas.",
+    "dias": {
+      "1": "segunda",
+      "2": "terca",
+      "3": "quarta",
+      "4": "quinta",
+      "5": "sexta"
+    },
+    "periodos": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6"
+    },
+    "turnos": ["MANHA", "TARDE", "NOITE"],
+    "etapas": ["FUNDAMENTAL", "MEDIO"]
+  },
+  "dias": [1, 2, 3, 4, 5],
+  "periodos": [1, 2, 3, 4, 5, 6],
+  "disciplinas": [
+    "DISCIPLINA_MATEMATICA",
+    "DISCIPLINA_PORTUGUES",
+    "DISCIPLINA_HISTORIA",
+    "DISCIPLINA_CIENCIAS"
+  ],
+  "turmas": [
+    {"idTurma": "TURMA_8A", "turno": "MANHA", "etapa": "FUNDAMENTAL"},
+    {"idTurma": "TURMA_8B", "turno": "MANHA", "etapa": "FUNDAMENTAL"},
+    {"idTurma": "TURMA_9A", "turno": "TARDE", "etapa": "MEDIO"}
+  ],
+  "professores": [
+    {
+      "idProfessor": "PROFESSOR_ANA",
+      "disciplinasHabilitadas": ["DISCIPLINA_MATEMATICA"],
+      "disponibilidade": "todos"
+    },
+    {
+      "idProfessor": "PROFESSOR_BRUNO",
+      "disciplinasHabilitadas": [
+        "DISCIPLINA_PORTUGUES",
+        "DISCIPLINA_MATEMATICA"
+      ],
+      "disponibilidade": "todos"
+    },
+    {
+      "idProfessor": "PROFESSOR_CARLA",
+      "disciplinasHabilitadas": [
+        "DISCIPLINA_HISTORIA",
+        "DISCIPLINA_PORTUGUES"
+      ],
+      "disponibilidade": "todos"
+    },
+    {
+      "idProfessor": "PROFESSOR_DIEGO",
+      "disciplinasHabilitadas": [
+        "DISCIPLINA_CIENCIAS",
+        "DISCIPLINA_MATEMATICA"
+      ],
+      "disponibilidade": "todos"
+    }
+  ],
+  "aulas": [
+    {"idProfessor": "PROFESSOR_ANA", "idDisciplina": "DISCIPLINA_MATEMATICA", "idTurma": "TURMA_8A", "dia": 1, "periodo": 1},
+    {"idProfessor": "PROFESSOR_BRUNO", "idDisciplina": "DISCIPLINA_PORTUGUES", "idTurma": "TURMA_8A", "dia": 1, "periodo": 2},
+    {"idProfessor": "PROFESSOR_CARLA", "idDisciplina": "DISCIPLINA_HISTORIA", "idTurma": "TURMA_8A", "dia": 1, "periodo": 3},
+    {"idProfessor": "PROFESSOR_ANA", "idDisciplina": "DISCIPLINA_MATEMATICA", "idTurma": "TURMA_8A", "dia": 2, "periodo": 1},
+    {"idProfessor": "PROFESSOR_DIEGO", "idDisciplina": "DISCIPLINA_CIENCIAS", "idTurma": "TURMA_8A", "dia": 2, "periodo": 2},
+    {"idProfessor": "PROFESSOR_BRUNO", "idDisciplina": "DISCIPLINA_PORTUGUES", "idTurma": "TURMA_8A", "dia": 2, "periodo": 3},
+    {"idProfessor": "PROFESSOR_CARLA", "idDisciplina": "DISCIPLINA_HISTORIA", "idTurma": "TURMA_8A", "dia": 3, "periodo": 1},
+    {"idProfessor": "PROFESSOR_ANA", "idDisciplina": "DISCIPLINA_MATEMATICA", "idTurma": "TURMA_8A", "dia": 3, "periodo": 2},
+    {"idProfessor": "PROFESSOR_BRUNO", "idDisciplina": "DISCIPLINA_PORTUGUES", "idTurma": "TURMA_8A", "dia": 4, "periodo": 1},
+    {"idProfessor": "PROFESSOR_DIEGO", "idDisciplina": "DISCIPLINA_CIENCIAS", "idTurma": "TURMA_8A", "dia": 4, "periodo": 2},
+    {"idProfessor": "PROFESSOR_ANA", "idDisciplina": "DISCIPLINA_MATEMATICA", "idTurma": "TURMA_8A", "dia": 5, "periodo": 1},
+    {"idProfessor": "PROFESSOR_CARLA", "idDisciplina": "DISCIPLINA_HISTORIA", "idTurma": "TURMA_8A", "dia": 5, "periodo": 2},
+
+    {"idProfessor": "PROFESSOR_BRUNO", "idDisciplina": "DISCIPLINA_PORTUGUES", "idTurma": "TURMA_8B", "dia": 1, "periodo": 1},
+    {"idProfessor": "PROFESSOR_ANA", "idDisciplina": "DISCIPLINA_MATEMATICA", "idTurma": "TURMA_8B", "dia": 1, "periodo": 2},
+    {"idProfessor": "PROFESSOR_DIEGO", "idDisciplina": "DISCIPLINA_CIENCIAS", "idTurma": "TURMA_8B", "dia": 1, "periodo": 3},
+    {"idProfessor": "PROFESSOR_CARLA", "idDisciplina": "DISCIPLINA_HISTORIA", "idTurma": "TURMA_8B", "dia": 2, "periodo": 1},
+    {"idProfessor": "PROFESSOR_ANA", "idDisciplina": "DISCIPLINA_MATEMATICA", "idTurma": "TURMA_8B", "dia": 2, "periodo": 2},
+    {"idProfessor": "PROFESSOR_BRUNO", "idDisciplina": "DISCIPLINA_PORTUGUES", "idTurma": "TURMA_8B", "dia": 3, "periodo": 1},
+    {"idProfessor": "PROFESSOR_DIEGO", "idDisciplina": "DISCIPLINA_CIENCIAS", "idTurma": "TURMA_8B", "dia": 3, "periodo": 2},
+    {"idProfessor": "PROFESSOR_ANA", "idDisciplina": "DISCIPLINA_MATEMATICA", "idTurma": "TURMA_8B", "dia": 4, "periodo": 1},
+    {"idProfessor": "PROFESSOR_CARLA", "idDisciplina": "DISCIPLINA_HISTORIA", "idTurma": "TURMA_8B", "dia": 4, "periodo": 2},
+    {"idProfessor": "PROFESSOR_DIEGO", "idDisciplina": "DISCIPLINA_CIENCIAS", "idTurma": "TURMA_8B", "dia": 5, "periodo": 1},
+    {"idProfessor": "PROFESSOR_BRUNO", "idDisciplina": "DISCIPLINA_PORTUGUES", "idTurma": "TURMA_8B", "dia": 5, "periodo": 2},
+
+    {"idProfessor": "PROFESSOR_ANA", "idDisciplina": "DISCIPLINA_MATEMATICA", "idTurma": "TURMA_9A", "dia": 1, "periodo": 4},
+    {"idProfessor": "PROFESSOR_BRUNO", "idDisciplina": "DISCIPLINA_PORTUGUES", "idTurma": "TURMA_9A", "dia": 2, "periodo": 4},
+    {"idProfessor": "PROFESSOR_CARLA", "idDisciplina": "DISCIPLINA_HISTORIA", "idTurma": "TURMA_9A", "dia": 3, "periodo": 4},
+    {"idProfessor": "PROFESSOR_DIEGO", "idDisciplina": "DISCIPLINA_CIENCIAS", "idTurma": "TURMA_9A", "dia": 4, "periodo": 4}
+  ],
+  "cenario": {
+    "ausencia": {
+      "idProfessor": "PROFESSOR_ANA",
+      "turno": "MANHA",
+      "dias": [1]
+    }
+  }
+}

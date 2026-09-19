@@ -1,6 +1,14 @@
 from gradeia.modules.cenarios.comparador import ComparadorDeSolucoes
 from gradeia.modules.cenarios.modelo import (
+    ETAPAS_VALIDAS,
+    FUNDAMENTAL,
     JANELA_DE_ALTERACAO,
+    MANHA,
+    MEDIO,
+    NOITE,
+    PERIODOS_POR_ETAPA,
+    TARDE,
+    TURNOS_VALIDOS,
     AtribuicaoDeAula,
     AusenciaDeProfessor,
     Cenario,
@@ -8,6 +16,7 @@ from gradeia.modules.cenarios.modelo import (
     Professor,
     RestricaoDeCenario,
     SolucaoDeCenario,
+    Turma,
 )
 from gradeia.modules.cenarios.resultado import (
     CENARIO_INVIAVEL,
@@ -17,7 +26,15 @@ from gradeia.modules.cenarios.resultado import (
 )
 
 __all__ = [
+    "ETAPAS_VALIDAS",
+    "FUNDAMENTAL",
     "JANELA_DE_ALTERACAO",
+    "MANHA",
+    "MEDIO",
+    "NOITE",
+    "PERIODOS_POR_ETAPA",
+    "TARDE",
+    "TURNOS_VALIDOS",
     "AtribuicaoDeAula",
     "AusenciaDeProfessor",
     "Cenario",
@@ -25,6 +42,7 @@ __all__ = [
     "Professor",
     "RestricaoDeCenario",
     "SolucaoDeCenario",
+    "Turma",
     "ComparadorDeSolucoes",
     "CENARIO_INVIAVEL",
     "CENARIO_VIAVEL",
