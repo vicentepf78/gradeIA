@@ -27,5 +27,9 @@ def test_ausencia_impede_alocacao_do_professor_na_janela():
     assert resultado.solucoes
     for solucao in resultado.solucoes:
         for atribuicao in solucao.atribuicoes:
-            if (atribuicao.dia, atribuicao.periodo) in cenario.ausencia.dias_periodos:
+            turma = grade_base.perfil_da_turma(atribuicao.id_turma)
+            if (
+                turma.turno == cenario.ausencia.turno
+                and atribuicao.dia in {1}
+            ):
                 assert atribuicao.id_professor != professor_ausente

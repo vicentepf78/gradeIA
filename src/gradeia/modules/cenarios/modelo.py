@@ -2,6 +2,14 @@ from dataclasses import dataclass
 
 
 JANELA_DE_ALTERACAO = "JANELA_DE_ALTERACAO"
+MANHA = "MANHA"
+TARDE = "TARDE"
+NOITE = "NOITE"
+FUNDAMENTAL = "FUNDAMENTAL"
+MEDIO = "MEDIO"
+TURNOS_VALIDOS = frozenset({MANHA, TARDE, NOITE})
+ETAPAS_VALIDAS = frozenset({FUNDAMENTAL, MEDIO})
+PERIODOS_POR_ETAPA = {FUNDAMENTAL: 5, MEDIO: 6}
 
 
 @dataclass(frozen=True)
@@ -11,6 +19,18 @@ class AtribuicaoDeAula:
     id_turma: str
     dia: int
     periodo: int
+    turno: str | None = None
+
+
+@dataclass(frozen=True)
+class Turma:
+    id_turma: str
+    turno: str
+    etapa: str
+
+    @property
+    def teto_de_periodos(self) -> int:
+        return PERIODOS_POR_ETAPA[self.etapa]
 
 
 @dataclass(frozen=True)
@@ -29,6 +49,7 @@ class GradeBase:
     periodos: frozenset[int]
     aulas: tuple[AtribuicaoDeAula, ...]
     detalhes_dos_professores: tuple[Professor, ...] = ()
+    detalhes_das_turmas: tuple[Turma, ...] = ()
 
     def perfil_do_professor(self, id_professor: str) -> Professor:
         for perfil in self.detalhes_dos_professores:
@@ -42,11 +63,18 @@ class GradeBase:
             ),
         )
 
+    def perfil_da_turma(self, id_turma: str) -> Turma:
+        for turma in self.detalhes_das_turmas:
+            if turma.id_turma == id_turma:
+                return turma
+        return Turma(id_turma=id_turma, turno=MANHA, etapa=MEDIO)
+
 
 @dataclass(frozen=True)
 class AusenciaDeProfessor:
     id_professor: str
-    dias_periodos: frozenset[tuple[int, int]]
+    turno: str
+    dias: frozenset[int] = frozenset()
 
 
 @dataclass(frozen=True)
@@ -58,7 +86,7 @@ class RestricaoDeCenario:
 @dataclass(frozen=True)
 class Cenario:
     ausencia: AusenciaDeProfessor
-    restricoes: tuple[RestricaoDeCenario, ...]
+    restricoes: tuple[RestricaoDeCenario, ...] = ()
 
 
 @dataclass(frozen=True)
