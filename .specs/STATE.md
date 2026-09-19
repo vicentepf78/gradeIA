@@ -9,9 +9,9 @@
 ## Handoff
 
 **Feature**: gerar-cenarios-grade
-**Where**: C4 fechado - C1, C3, C4 verdes; C2 pendente para S2
+**Where**: C9 fechado - C1–C9 verdes; C10–C13 pendentes
 **In progress**: none
-**Next step**: S2 — motor CP-SAT (C2, C5–C9)
+**Next step**: S3 — comparar e ordenar até cinco soluções
 **Blockers**: none
 **Uncommitted**: none
 **Branch**: poc-grade-semanal

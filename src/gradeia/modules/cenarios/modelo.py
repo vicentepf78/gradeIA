@@ -14,6 +14,13 @@ class AtribuicaoDeAula:
 
 
 @dataclass(frozen=True)
+class Professor:
+    id_professor: str
+    disciplinas_habilitadas: frozenset[str]
+    disponibilidade: frozenset[tuple[int, int]]
+
+
+@dataclass(frozen=True)
 class GradeBase:
     professores: frozenset[str]
     disciplinas: frozenset[str]
@@ -21,6 +28,19 @@ class GradeBase:
     dias: frozenset[int]
     periodos: frozenset[int]
     aulas: tuple[AtribuicaoDeAula, ...]
+    detalhes_dos_professores: tuple[Professor, ...] = ()
+
+    def perfil_do_professor(self, id_professor: str) -> Professor:
+        for perfil in self.detalhes_dos_professores:
+            if perfil.id_professor == id_professor:
+                return perfil
+        return Professor(
+            id_professor=id_professor,
+            disciplinas_habilitadas=self.disciplinas,
+            disponibilidade=frozenset(
+                (dia, periodo) for dia in self.dias for periodo in self.periodos
+            ),
+        )
 
 
 @dataclass(frozen=True)

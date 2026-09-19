@@ -12,7 +12,7 @@ Plan: `.specs/features/gerar-cenarios-grade/plan.md`
 **C1** ✓ (feito) - Cada `AtribuicaoDeAula` aceita exatamente um professor, disciplina, turma, dia e período existentes na `GradeBase` (AC 1).
 Proof: `pytest tests/cenarios/test_validacao_cenario.py::test_atribuicao_com_referencias_existentes_e_aceita`
 
-**C2** - Uma ausência declarada impede o professor ausente de permanecer alocado dentro da janela do cenário (AC 2).
+**C2** ✓ (feito) - Uma ausência declarada impede o professor ausente de permanecer alocado dentro da janela do cenário (AC 2).
 Proof: `pytest tests/cenarios/test_ausencia_professor.py::test_ausencia_impede_alocacao_do_professor_na_janela`
 
 **C3** ✓ (feito) - Uma atribuição que referencia professor, turma, disciplina, dia ou período inexistente é rejeitada antes da criação do modelo CP-SAT (AC 3).
@@ -23,19 +23,19 @@ Proof: `pytest tests/cenarios/test_janela_de_alteracao.py::test_janela_insuficie
 
 ### S2 - gerar alternativas viáveis com CP-SAT · 8 arquivos · 48 KB · ~12k
 
-**C5** - Toda solução viável contém no máximo uma aula por combinação de professor/dia/período e por combinação de turma/dia/período (AC 5).
+**C5** ✓ (feito) - Toda solução viável contém no máximo uma aula por combinação de professor/dia/período e por combinação de turma/dia/período (AC 5).
 Proof: `pytest tests/scheduling/test_restricoes_obrigatorias.py::test_solucao_nao_cria_conflito_de_professor_nem_de_turma`
 
-**C6** - Toda aula de uma solução viável é atribuída somente a professor habilitado para a disciplina e disponível no dia e período da aula (AC 6).
+**C6** ✓ (feito) - Toda aula de uma solução viável é atribuída somente a professor habilitado para a disciplina e disponível no dia e período da aula (AC 6).
 Proof: `pytest tests/scheduling/test_restricoes_obrigatorias.py::test_solucao_respeita_habilitacao_e_disponibilidade_do_professor`
 
-**C7** - Toda solução viável preserva a quantidade total de aulas de cada combinação turma/disciplina da grade base (AC 7).
+**C7** ✓ (feito) - Toda solução viável preserva a quantidade total de aulas de cada combinação turma/disciplina da grade base (AC 7).
 Proof: `pytest tests/scheduling/test_restricoes_obrigatorias.py::test_solucao_preserva_quantidade_de_aulas_por_turma_e_disciplina`
 
-**C8** - Toda aula fora da janela de alteração preserva professor, disciplina, turma, dia e período da grade base (AC 8).
+**C8** ✓ (feito) - Toda aula fora da janela de alteração preserva professor, disciplina, turma, dia e período da grade base (AC 8).
 Proof: `pytest tests/scheduling/test_restricoes_obrigatorias.py::test_solucao_preserva_atribuicoes_fora_da_janela_de_alteracao`
 
-**C9** - Uma simulação sem alternativa que satisfaça as restrições retorna `CENARIO_INVIAVEL` sem apresentar solução parcial como viável (AC 9).
+**C9** ✓ (feito) - Uma simulação sem alternativa que satisfaça as restrições retorna `CENARIO_INVIAVEL` sem apresentar solução parcial como viável (AC 9).
 Proof: `pytest tests/scheduling/test_cenario_inviavel.py::test_solver_sem_alternativa_retorna_cenario_inviavel_sem_solucao_parcial`
 
 ### S3 - comparar e explicar opções de reorganização · 5 arquivos · 24 KB · ~6k
@@ -85,3 +85,4 @@ Proof: `pytest tests/cenarios/test_comparacao_de_solucoes.py::test_mesma_entrada
 
 - S1 = 24 KB; S2 acrescenta 48 KB; S3 acrescenta 24 KB; configuração e fixtures acrescentam aproximadamente 12 KB. Estimativa total: 108 KB / 4 = aproximadamente 27k tokens, abaixo do orçamento `light` de 150k - one builder.
 - S1 C1/C3/C4 fechados nesta fatia. C2 não fecha aqui: `Cenario` e `AusenciaDeProfessor` estão modelados; a prova `test_ausencia_impede_alocacao_do_professor_na_janela` fica para S2 com o motor CP-SAT.
+- S2 C2/C5–C9 fechados nesta fatia. C10–C13 ficam para S3.
