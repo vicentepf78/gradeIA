@@ -10,9 +10,9 @@
 ## Handoff
 
 **Feature**: turnos-e-ausencia-por-turno
-**Where**: C8 fechado - C1–C8 verdes; aguardando Verifier
+**Where**: verification PASS - C1–C8 verdes; `validate_verification.py` exit 0
 **In progress**: none
-**Next step**: Verifier independente sobre o range do commit desta feature
+**Next step**: nenhum — feature fechada no profile light
 **Blockers**: none
-**Uncommitted**: implementação de turnos
+**Uncommitted**: `verification.md`
 **Branch**: poc-grade-semanal
