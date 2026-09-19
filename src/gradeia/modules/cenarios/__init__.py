@@ -4,6 +4,7 @@ from gradeia.modules.cenarios.modelo import (
     AusenciaDeProfessor,
     Cenario,
     GradeBase,
+    Professor,
     RestricaoDeCenario,
     SolucaoDeCenario,
 )
@@ -20,6 +21,7 @@ __all__ = [
     "AusenciaDeProfessor",
     "Cenario",
     "GradeBase",
+    "Professor",
     "RestricaoDeCenario",
     "SolucaoDeCenario",
     "CENARIO_INVIAVEL",

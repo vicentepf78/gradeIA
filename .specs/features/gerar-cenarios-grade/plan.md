@@ -12,7 +12,7 @@ O POC reutiliza a grade base como dado imutável e mantém o OR-Tools restrito a
 
 1. Uma `GradeBase` e um `Cenario` entram no módulo `cenarios` - o cenário referencia a grade e declara a indisponibilidade e as restrições de alteração.
 2. `SchedulingEngine` (door 1) valida a coerência do cenário com a grade e cria a representação do problema para o solver.
-3. `OrToolsSchedulingEngine` (door 1) constrói um `CpModel`, aplica as restrições obrigatórias, otimiza o impacto das alterações e coleta soluções distintas.
+3. `OrToolsSchedulingEngine` (door 1) constrói um `CpModel`, aplica as restrições obrigatórias e coleta soluções viáveis distintas.
 4. `ComparadorDeSolucoes` (door 1) compara cada solução com a grade base, calcula alterações e professores afetados e retorna até cinco alternativas ordenadas.
 5. out: `ResultadoDaSimulacao`, contendo o status, a explicação de inviabilidade quando não houver solução e as soluções comparáveis; a `GradeBase` não é alterada.
 

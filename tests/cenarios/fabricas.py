@@ -6,6 +6,7 @@ from gradeia.modules.cenarios import (
     AusenciaDeProfessor,
     Cenario,
     GradeBase,
+    Professor,
     RestricaoDeCenario,
 )
 
@@ -22,14 +23,58 @@ def aula_valida(**sobrescritas: object) -> AtribuicaoDeAula:
     return AtribuicaoDeAula(**dados)
 
 
-def grade_minima(aulas: tuple[AtribuicaoDeAula, ...] | None = None) -> GradeBase:
+def detalhes_dos_professores(
+    professores: frozenset[str],
+    disciplinas: frozenset[str] | None = None,
+    dias: frozenset[int] | None = None,
+    periodos: frozenset[int] | None = None,
+    sobrescritas: dict[str, Professor] | None = None,
+) -> tuple[Professor, ...]:
+    disciplinas_padrao = disciplinas or frozenset({"DISCIPLINA_001", "DISCIPLINA_002"})
+    dias_padrao = dias or frozenset({1, 2, 3, 4, 5})
+    periodos_padrao = periodos or frozenset({1, 2, 3, 4, 5, 6})
+    disponibilidade = frozenset(
+        (dia, periodo) for dia in dias_padrao for periodo in periodos_padrao
+    )
+    por_id = {
+        id_professor: Professor(
+            id_professor=id_professor,
+            disciplinas_habilitadas=disciplinas_padrao,
+            disponibilidade=disponibilidade,
+        )
+        for id_professor in professores
+    }
+    if sobrescritas:
+        por_id.update(sobrescritas)
+    return tuple(por_id[id_professor] for id_professor in sorted(por_id))
+
+
+def grade_minima(
+    aulas: tuple[AtribuicaoDeAula, ...] | None = None,
+    professores: frozenset[str] | None = None,
+    detalhes: tuple[Professor, ...] | None = None,
+) -> GradeBase:
+    professores_da_grade = professores or frozenset({"PROFESSOR_001", "PROFESSOR_002"})
+    disciplinas = frozenset({"DISCIPLINA_001", "DISCIPLINA_002"})
+    dias = frozenset({1, 2, 3, 4, 5})
+    periodos = frozenset({1, 2, 3, 4, 5, 6})
     return GradeBase(
-        professores=frozenset({"PROFESSOR_001", "PROFESSOR_002"}),
-        disciplinas=frozenset({"DISCIPLINA_001", "DISCIPLINA_002"}),
+        professores=professores_da_grade,
+        disciplinas=disciplinas,
         turmas=frozenset({"TURMA_001", "TURMA_002"}),
-        dias=frozenset({1, 2, 3, 4, 5}),
-        periodos=frozenset({1, 2, 3, 4, 5, 6}),
+        dias=dias,
+        periodos=periodos,
         aulas=aulas if aulas is not None else (aula_valida(),),
+        detalhes_dos_professores=(
+            detalhes
+            if detalhes is not None
+            else detalhes_dos_professores(
+                professores_da_grade,
+                disciplinas=disciplinas,
+                dias=dias,
+                periodos=periodos,
+            )
+        ),
     )
 
 
