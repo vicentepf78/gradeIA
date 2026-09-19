@@ -9,9 +9,9 @@
 ## Handoff
 
 **Feature**: gerar-cenarios-grade
-**Where**: C13 fechado - C1–C13 verdes; aguardando Verifier
+**Where**: verification PASS - C1–C13 verdes; `validate_verification.py` exit 0
 **In progress**: none
-**Next step**: Verifier independente sobre o range do primeiro commit da feature..HEAD
+**Next step**: nenhum — feature fechada no profile light; push só com autorização explícita
 **Blockers**: none
-**Uncommitted**: none
+**Uncommitted**: `verification.md` (relatório do Verifier)
 **Branch**: poc-grade-semanal
